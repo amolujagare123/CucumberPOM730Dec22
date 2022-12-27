@@ -10,7 +10,7 @@ glue="stepDefinition",
 plugin = {"pretty","html:target/cucumber.html"
   ,"json:target/cucumber.json"
   ,"junit:target/cucumber.xml"}
-    , tags = "@CurrentTemp"
+    , tags = "@todaysTemp"
 )
 public class TestRunner {
 }

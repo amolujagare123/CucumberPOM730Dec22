@@ -24,19 +24,17 @@ public class Base {
                 .ignoring(ElementClickInterceptedException.class)
                 .ignoring(ElementNotInteractableException.class)
                 .ignoring(ArithmeticException.class)
-                .ignoring(NoSuchElementException.class)
+                .ignoring(Exception.class)
                 .withMessage(
                         "WebDriver waited for 50 seconds but still " +
                                 "could not find the element therefore " +
                                 "Timeout Exception has been thrown");
 
         WebElement element = wait.until(new Function<WebDriver, WebElement>() {
-
             public WebElement apply(WebDriver driver)
             {
                 return driver.findElement(locator);
             }
-
         });
 
         return element;

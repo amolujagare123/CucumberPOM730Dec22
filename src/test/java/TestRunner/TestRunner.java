@@ -10,7 +10,7 @@ glue="stepDefinition",
 plugin = {"pretty","html:target/cucumber.html"
   ,"json:target/cucumber.json"
   ,"junit:target/cucumber.xml"}
-    , tags = "@todaysTemp"
+    , tags = "@maxAmount" //,dryRun = true
 )
 public class TestRunner {
 }

@@ -1,5 +1,6 @@
 package pages;
 
+import io.cucumber.java.sl.In;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
@@ -69,5 +70,33 @@ public class DarkskyHome extends Base {
         }};
 
         return tempList;
+    }
+
+    By timeList = By.xpath("//span[@class='hour']/span");
+
+    public  ArrayList<Integer> getTimeList()
+    {
+        ArrayList<Integer> timeListInt = new ArrayList<>();
+
+        ArrayList<String> timeListRaw = getElementTextList(timeList);
+        System.out.println(timeListRaw);
+
+        for (int i=0;i<timeListRaw.size();i++)
+        {
+            String timeRawStr = timeListRaw.get(i); // "9pm" / "11am"
+            int l = timeRawStr.length();
+            String timeStr = timeRawStr.substring(0, l-2); // "9" / "11"
+            int timeInt = Integer.parseInt(timeStr);
+            timeListInt.add(timeInt);
+        }
+        System.out.println(timeListInt);
+        return timeListInt;
+    }
+
+    By darkSkyAPI = By.xpath("//a[normalize-space()='Dark Sky API']");
+
+    public void clickDarkSkyAPI()
+    {
+        clickOn(darkSkyAPI);
     }
 }

@@ -7,6 +7,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import pages.DarkskyHome;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import static stepDefinition.SharedSD.getDriver;
 
@@ -38,6 +40,59 @@ public class DarkskySD {
     @Then("I verify timeline is displayed with two hours incremented")
     public void iVerifyTimelineIsDisplayedWithTwoHoursIncremented() {
 
+        ArrayList<Integer> timeList = darkskyHome.getTimeList();
+        // [9, 11, 1, 3, 5, 7, 9, 11, 1, 3, 5] --> 11 (last index i-->10)
+
+        ArrayList<Integer> timeDiffList = new ArrayList<>();
+
+        for (int i=0;i< timeList.size()-1;i++)
+        {
+            int time1 = timeList.get(i);
+            int time2 = timeList.get(i+1);
+            int timeDiff = 0;
+
+            if(time2 > time1)
+              timeDiff = time2 - time1 ;
+            if(time2 < time1)
+                timeDiff = (time2 + 12) - time1 ;
+
+            timeDiffList.add(timeDiff);
+        }
+
+        System.out.println(timeDiffList);
+       /* boolean flag = true;
+
+        for (int i=0;i< timeDiffList.size();i++)
+        {
+            if (timeDiffList.get(i)!=2)
+                flag = false;
+        }
+
+        Assert.assertTrue("some time diff. are not 2",flag);*/
+
+        /*ArrayList<Integer> expectedList = new ArrayList<>(){{
+            for (int i=0;i<10;i++)
+                add(2);
+        }};
+
+        System.out.println("expected="+expectedList);
+        System.out.println("actual="+timeDiffList);
+        Assert.assertEquals("some time diff. are not 2",
+                expectedList,timeDiffList);*/
+
+        int size = timeDiffList.size();
+        int frequency = Collections.frequency(timeDiffList,2);
+
+        System.out.println("size="+size);
+        System.out.println("frequency="+frequency);
+
+        boolean result = (size==frequency);
+        Assert.assertTrue("some time diff. are not 2",result);
+
+        /*Assert.assertEquals("some time diff. are not 2",
+                size,frequency);*/
+
+
     }
 
     @Then("I verify today's lowest and highest temp is displayed correctly")
@@ -58,4 +113,6 @@ public class DarkskySD {
         Assert.assertEquals("temperatures lists are not equal",expected,actual);
 
     }
+
+
 }
